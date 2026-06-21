@@ -73,33 +73,37 @@ class Solution {
 
 ............................................................................
 
-#include <stdio.h>
+public class UndoRedoDemo {
+    public static void main(String[] args) {
+        int[] undo = new int[10];
+        int[] redo = new int[10];
 
-int undo[10], redo[10];
-int utop = -1, rtop = -1;
+        int utop = -1;
+        int rtop = -1;
 
-int main() {
-    undo[++utop] = 10;
-    undo[++utop] = 20;
-    undo[++utop] = 30;
+        undo[++utop] = 10;
+        undo[++utop] = 20;
+        undo[++utop] = 30;
 
-    printf("Undo Stack: ");
-    for(int i = utop; i >= 0; i--)
-        printf("%d ", undo[i]);
+        System.out.print("Undo Stack: ");
+        for (int i = utop; i >= 0; i--) {
+            System.out.print(undo[i] + " ");
+        }
 
-    redo[++rtop] = undo[utop--];
+        redo[++rtop] = undo[utop--];
 
-    printf("\nAfter Undo: ");
-    for(int i = utop; i >= 0; i--)
-        printf("%d ", undo[i]);
+        System.out.print("\nAfter Undo: ");
+        for (int i = utop; i >= 0; i--) {
+            System.out.print(undo[i] + " ");
+        }
 
-    undo[++utop] = redo[rtop--];
+        undo[++utop] = redo[rtop--];
 
-    printf("\nAfter Redo: ");
-    for(int i = utop; i >= 0; i--)
-        printf("%d ", undo[i]);
-
-    return 0;
+        System.out.print("\nAfter Redo: ");
+        for (int i = utop; i >= 0; i--) {
+            System.out.print(undo[i] + " ");
+        }
+    }
 }
 
 ..................................................................
