@@ -1,109 +1,95 @@
-class Solution {
+1. Fibonacci Number(LeetCode 509)...
+
+ class Solution {
     public int fib(int n) {
-        if (n <= 1) {
-            return n;
-        }
+        if(n == 0) return 0;
 
-        int a = 0;
-        int b = 1;
-
-        for (int i = 2; i <= n; i++) {
-            int c = a + b;
-            a = b;
-            b = c;
-        }
-
-        return b;
+        else if(n == 1) return 1;
+        
+        return fib(n-1) + fib(n-2);
     }
 }
 
-.................................................................
+------------------------------------------------------------------------------------------
+
+2. Climbing Stairs(LeetCode 70)...
 
 class Solution {
     public int climbStairs(int n) {
-        if (n <= 2) {
-            return n;
+        if(n==0)
+        {
+            return 1;
         }
-
-        int a = 1; 
-        int b = 2; 
-        
-        for (int i = 3; i <= n; i++) {
-            int c = a + b;
-            a = b;
-            b = c;
+        else if(n<0)
+        {
+            return 0;
         }
-
-        return b;
+        return climbStairs(n-1)+climbStairs(n-2);
     }
 }
 
-......................................................................
+------------------------------------------------------------------------------------------
 
-import java.util.*;
+3. Combination Sum(LeetCode 39)...
 
 class Solution {
-    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+    public List<List<Integer>> combinationSum(int[] candidates, int target) 
+    {
         List<List<Integer>> result = new ArrayList<>();
         backtrack(candidates, target, 0, new ArrayList<>(), result);
         return result;
     }
 
-    private void backtrack(int[] candidates, int target, int start,
+    private void backtrack(int[] candidates, int target, int index,
                            List<Integer> current, List<List<Integer>> result) {
 
-        if (target == 0) {
+        if (target == 0) 
+        {
             result.add(new ArrayList<>(current));
             return;
         }
 
-        if (target < 0) {
+        if (target < 0) 
+        {
             return;
         }
 
-        for (int i = start; i < candidates.length; i++) {
+        for (int i = index; i < candidates.length; i++) 
+        {
             current.add(candidates[i]);
-
             backtrack(candidates, target - candidates[i], i, current, result);
-
             current.remove(current.size() - 1);
         }
     }
 }
 
-.........................................................................................
+------------------------------------------------------------------------------------------
+
+4. Subsets II(LeetCode 90)...
 
 class Solution {
-    public int minEatingSpeed(int[] piles, int h) {
-        int left = 1;
-        int right = 0;
-
-        for (int pile : piles) {
-            right = Math.max(right, pile);
-        }
-
-        while (left < right) {
-            int mid = left + (right - left) / 2;
-
-            if (canFinish(piles, h, mid)) {
-                right = mid; 
-            } else {
-                left = mid + 1; 
-            }
-        }
-
-        return left;
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        Arrays.sort(nums);
+        backtrack(nums, 0, new ArrayList<>(), result);
+        return result;
     }
 
-    private boolean canFinish(int[] piles, int h, int k) {
-        long hours = 0;
+    private void backtrack(int[] nums, int index,
+                           List<Integer> current,
+                           List<List<Integer>> result) {
 
-        for (int pile : piles) {
-            hours += (pile + k - 1) / k; 
+        result.add(new ArrayList<>(current));
+
+        for (int i = index; i < nums.length; i++) 
+        {
+            if (i > index && nums[i] == nums[i - 1])
+                continue;
+                current.add(nums[i]);
+                backtrack(nums, i + 1, current, result);
+                current.remove(current.size() - 1);
         }
-
-        return hours <= h;
     }
 }
 
-...............................................................................
+------------------------------------------------------------------------------------------
